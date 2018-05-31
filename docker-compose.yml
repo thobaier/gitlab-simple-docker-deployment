@@ -1,0 +1,53 @@
+version: '3'
+services:
+
+  ##########
+  # gitlab #
+  ##########
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    container_name: 'gitlab'
+    hostname: 'gitlab'
+    restart: always
+    privileged: true
+    ports:
+      - '80:80'
+      - '443:443'
+      - '4567:4567'
+      - '22:22'
+    volumes:
+      - './persistent-data/gitlab/config:/etc/gitlab'
+      - './persistent-data/gitlab/logs:/var/log/gitlab'
+      - './persistent-data/gitlab/data:/var/opt/gitlab'
+      - './gitlab.rb:/etc/gitlab/gitlab.rb'
+      - './ssl/gitlab.crt:/etc/gitlab/ssl/gitlab.crt'
+      - './ssl/gitlab.key:/etc/gitlab/ssl/gitlab.key'
+
+  #################
+  # gitlab-runner #
+  #################
+  runner:
+    image: 'gitlab/gitlab-runner:latest'
+    container_name: 'runner'
+    hostname: 'runner'
+    restart: always
+    environment:
+      - DOCKER_HOST=tcp://dind:2375
+    volumes:
+      - './persistent-data/runner/config:/etc/gitlab-runner'
+      - './ssl/root.pem:/etc/ssl/certs/gitlab.pem'
+      - './ssl/root.pem:/etc/ssl/certs/ca-certificates.crt'
+
+  ###############
+  # docker dind #
+  ###############
+  dind:
+    restart: always
+    container_name: 'dind'
+    privileged: true
+    volumes:
+      - /var/lib/docker
+      - './ssl/root.pem:/etc/ssl/certs/gitlab.pem'
+    image: docker:18.05.0-ce-dind
+    command:
+      - --storage-driver=overlay2
