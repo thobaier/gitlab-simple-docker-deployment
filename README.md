@@ -32,7 +32,7 @@ You can verify that all containers where bring up correctly by
 $ docker ps
 CONTAINER ID  IMAGE                        COMMAND                 CREATED            STATUS         NAMES
 c05e61d16a34  gitlab/gitlab-ce:latest      "/assets/wrapper"       12 seconds ago     Up 11 seconds  gitlab
-dde31f19a26c  gitlab/gitlab-runner:latest  "/usr/bin/dumb-init …"  12 seconds ago     Up 11 seconds  runner                                                                                                           runner
+dde31f19a26c  gitlab/gitlab-runner:latest  "/usr/bin/dumb-init …"  12 seconds ago     Up 11 seconds  runner
 23eed28af396  docker:18.05.0-ce-dind       "dockerd-entrypoint.…"  About an hour ago  Up 11 seconds  registry
 ```
 
@@ -42,7 +42,6 @@ Fine, everything is running!
 
 ## Get the IP from host
 We need the IP of the host (wich is running the compose file). In my case its my local maschine, so to grab your ip you could use something like: 
-
 
 ```bash
 ip route get 1 | awk '{print $NF;exit}'
