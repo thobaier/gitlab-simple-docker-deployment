@@ -1,24 +1,9 @@
-## GitLab configuration settings
-##! This file is generated during initial installation and **is not** modified
-##! during upgrades.
-##! Check out the latest version of this file to know about the different
-##! settings that can be configured by this file, which may be found at:
-##! https://gitlab.com/gitlab-org/omnibus-gitlab/raw/master/files/gitlab-config-template/gitlab.rb.template
-
-## GitLab URL
-##! URL on which GitLab will be reachable.
-##! For more details on configuring external_url see:
-##! https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-external-url-for-gitlab
-
 external_url 'https://gitlab/'
 registry_nginx['enable'] = true
 registry_nginx['listen_port'] = 4567
 registry_external_url 'https://gitlab:4567'
-
 nginx['ssl_certificate'] = "/etc/gitlab/ssl/gitlab.crt"
 nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/gitlab.key"
-
-
 
 ## Roles for multi-instance GitLab
 ##! The default is to have no roles enabled, which results in GitLab running as an all-in-one instance.
