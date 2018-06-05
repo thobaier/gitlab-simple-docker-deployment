@@ -1,3 +1,5 @@
+# these are the only changed settings.
+# the rest of the file is the default gitlab config
 external_url 'https://gitlab/'
 registry_nginx['enable'] = true
 registry_nginx['listen_port'] = 4567
